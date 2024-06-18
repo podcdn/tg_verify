@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teelgram Verify</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+
+    </style>
 </head>
 <body>
     <div>验证中...</div>
     <script>
+        params = new URLSearchParams(window.location.search);
+        chat_id = params.get("chat_id");
+
         app = Telegram.WebApp;
         version = app.version;
-        sdk = app.platform.toLowerCase();
-        if(!(sdk == 'android' || sdk == 'ios)){
+        sdk = app.platform;
+        if(sdk != 'android' && sdk != 'ios'){
             app.showAlert("请使用移动设备客户端进行验证。");
             app.close();
-            return;
+        }else{
+            app.sendData(chat_id);
+            app.close();
         }
-        app.sendData("ok");
-
     </script>
 </body>
 </html>
