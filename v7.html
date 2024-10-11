@@ -11,12 +11,15 @@
   <body>
     <div class="turnstile-container">
       <div class="loading">正在加载中...</div>
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAxNeV-C6fpE9S5U" data-callback="onTurnstileSuccess"></div>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAxNeV-C6fpE9S5U" data-callback="onTurnstileSuccess" data-error-callback="onTurnstileError"></div>
     </div>
 
     <script>
         function onTurnstileSuccess(token) {
             window['TelegramWebviewProxy'].postEvent('web_app_data_send', JSON.stringify({data: token}));
+        }
+        function onTurnstileError() {
+            turnstile.reset();
         }
     </script>
   </body>
